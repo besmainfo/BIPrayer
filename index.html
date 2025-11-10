@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>BIPrayer App - Téléchargement Officiel</title>
+  <link rel="icon" type="image/png" href="ic_biprayer.png">
   <style>
     body {
       font-family: 'Segoe UI', Arial, sans-serif;
@@ -12,21 +13,40 @@
       text-align: center;
       padding: 40px 20px;
     }
-    h1 {
-      font-size: 2.2em;
-      margin-bottom: 10px;
+    header img {
+      height: 70px;
+      vertical-align: middle;
+      border-radius: 15px;
     }
-    h2 {
-      font-weight: normal;
-      margin-bottom: 30px;
+    header h1 {
+      font-size: 2em;
+      margin: 10px 0 0;
+    }
+    .lang-switch {
+      margin-top: 20px;
+    }
+    .lang-switch button {
+      background: rgba(255,255,255,0.15);
+      border: none;
+      color: white;
+      margin: 5px;
+      padding: 10px 15px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+    .lang-switch button:hover {
+      background: #00b894;
     }
     .btn {
+      display: inline-block;
       background: #00b894;
       color: white;
       padding: 15px 30px;
       text-decoration: none;
       border-radius: 30px;
       font-size: 1.2em;
+      margin-top: 25px;
       transition: 0.3s;
     }
     .btn:hover {
@@ -45,15 +65,38 @@
       font-size: 0.9em;
       opacity: 0.8;
     }
+    .footer img {
+      height: 25px;
+      vertical-align: middle;
+      border-radius: 5px;
+      margin-right: 8px;
+    }
+    a.email {
+      color: #00d2ff;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    a.email:hover {
+      text-decoration: underline;
+    }
   </style>
 </head>
 <body>
-  <h1>📱 BIPrayer App</h1>
-  <h2>Application officielle par <b>BesmaInfo</b></h2>
+  <header>
+    <img src="ic_besmainfo.png" alt="BesmaInfo Logo">
+    <h1>📱 BIPrayer App</h1>
+    <p id="subtitle">Application officielle par <b>BesmaInfo</b></p>
+  </header>
 
-  <a class="btn" href="https://github.com/BesmaInfo/BIPrayer/releases/latest/download/BIPrayer_v1_0_0.apk">⬇️ Télécharger la version 1.0.0</a>
+  <div class="lang-switch">
+    <button onclick="setLang('fr')">🇫🇷 Français</button>
+    <button onclick="setLang('en')">🇬🇧 English</button>
+    <button onclick="setLang('ar')">🇸🇦 العربية</button>
+  </div>
 
-  <div class="features">
+  <a class="btn" id="downloadBtn" href="https://github.com/BesmaInfo/BIPrayer/releases/latest/download/BIPrayer_v1_0_0.apk">⬇️ Télécharger la version 1.0.0</a>
+
+  <div class="features" id="features">
     <h3>✨ Fonctionnalités :</h3>
     <ul>
       <li>🕌 Horaires de prière précis selon ta localisation</li>
@@ -65,7 +108,62 @@
   </div>
 
   <div class="footer">
-    © 2025 BesmaInfo — Tous droits réservés
+    <img src="ic_besmainfo.png" alt="BesmaInfo">
+    <span id="footerText">© 2025 BesmaInfo — Tous droits réservés</span><br>
+    <a class="email" href="mailto:besmainfo2025@gmail.com">📧 besmainfo2025@gmail.com</a>
   </div>
+
+  <script>
+    const translations = {
+      fr: {
+        subtitle: "Application officielle par <b>BesmaInfo</b>",
+        download: "⬇️ Télécharger la version 1.0.0",
+        featuresTitle: "✨ Fonctionnalités :",
+        features: [
+          "🕌 Horaires de prière précis selon ta localisation",
+          "🔊 Adhan complet (audio)",
+          "🔔 Notifications automatiques",
+          "🌍 Interface multilingue : Français, Arabe, Anglais",
+          "🔇 Mode silencieux après l’appel à la prière"
+        ],
+        footer: "© 2025 BesmaInfo — Tous droits réservés"
+      },
+      en: {
+        subtitle: "Official app by <b>BesmaInfo</b>",
+        download: "⬇️ Download version 1.0.0",
+        featuresTitle: "✨ Features:",
+        features: [
+          "🕌 Accurate prayer times based on your location",
+          "🔊 Full Adhan (audio)",
+          "🔔 Automatic notifications",
+          "🌍 Multilingual interface: English, Arabic, French",
+          "🔇 Silent mode after Adhan"
+        ],
+        footer: "© 2025 BesmaInfo — All rights reserved"
+      },
+      ar: {
+        subtitle: "<b>بسمة إنفو</b> التطبيق الرسمي من",
+        download: "⬇️ تحميل الإصدار 1.0.0",
+        featuresTitle: "✨ المميزات:",
+        features: [
+          "🕌 أوقات الصلاة دقيقة حسب موقعك",
+          "🔊 أذان كامل (صوت)",
+          "🔔 إشعارات تلقائية",
+          "🌍 واجهة متعددة اللغات: العربية، الإنجليزية، الفرنسية",
+          "🔇 الوضع الصامت بعد الأذان"
+        ],
+        footer: "© 2025 بسمة إنفو — جميع الحقوق محفوظة"
+      }
+    };
+
+    function setLang(lang) {
+      const t = translations[lang];
+      document.getElementById("subtitle").innerHTML = t.subtitle;
+      document.getElementById("downloadBtn").textContent = t.download;
+      document.getElementById("features").innerHTML = `<h3>${t.featuresTitle}</h3><ul>${t.features.map(f=>`<li>${f}</li>`).join('')}</ul>`;
+      document.getElementById("footerText").innerHTML = t.footer;
+      document.body.dir = (lang === 'ar') ? 'rtl' : 'ltr';
+    }
+  </script>
 </body>
 </html>
