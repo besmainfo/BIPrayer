@@ -12,19 +12,42 @@
       color: white;
       text-align: center;
       padding: 40px 20px;
+      transition: all 0.3s ease;
     }
-    header img {
+
+    header {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .logos {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 20px;
+      margin-bottom: 10px;
+    }
+
+    .logos img {
       height: 70px;
-      vertical-align: middle;
       border-radius: 15px;
+      transition: transform 0.3s;
     }
+
+    .logos img:hover {
+      transform: scale(1.1);
+    }
+
     header h1 {
       font-size: 2em;
       margin: 10px 0 0;
     }
+
     .lang-switch {
       margin-top: 20px;
     }
+
     .lang-switch button {
       background: rgba(255,255,255,0.15);
       border: none;
@@ -35,9 +58,11 @@
       cursor: pointer;
       font-weight: bold;
     }
+
     .lang-switch button:hover {
       background: #00b894;
     }
+
     .btn {
       display: inline-block;
       background: #00b894;
@@ -49,9 +74,11 @@
       margin-top: 25px;
       transition: 0.3s;
     }
+
     .btn:hover {
       background: #019670;
     }
+
     .features {
       text-align: left;
       max-width: 500px;
@@ -60,30 +87,56 @@
       border-radius: 20px;
       padding: 20px;
     }
+
     .footer {
       margin-top: 40px;
       font-size: 0.9em;
       opacity: 0.8;
     }
+
     .footer img {
       height: 25px;
       vertical-align: middle;
       border-radius: 5px;
       margin-right: 8px;
     }
+
     a.email {
       color: #00d2ff;
       text-decoration: none;
       font-weight: bold;
     }
+
     a.email:hover {
       text-decoration: underline;
     }
+
+    /* 🔄 Adaptation automatique RTL / LTR */
+    [dir="rtl"] {
+      direction: rtl;
+      text-align: right;
+    }
+
+    [dir="rtl"] .features {
+      text-align: right;
+    }
+
+    [dir="rtl"] .footer img {
+      margin-right: 0;
+      margin-left: 8px;
+    }
+
+    [dir="rtl"] .logos {
+      flex-direction: row-reverse;
+    }
   </style>
 </head>
-<body>
+<body dir="ltr">
   <header>
-    <img src="ic_besmainfo.png" alt="BesmaInfo Logo">
+    <div class="logos">
+      <img src="ic_besmainfo.png" alt="BesmaInfo Logo">
+      <img src="ic_biprayer.png" alt="BIPrayer Icon">
+    </div>
     <h1>📱 BIPrayer App</h1>
     <p id="subtitle">Application officielle par <b>BesmaInfo</b></p>
   </header>
@@ -103,6 +156,73 @@
       <li>🔊 Adhan complet (audio)</li>
       <li>🔔 Notifications automatiques</li>
       <li>🌍 Interface multilingue : Français, Arabe, Anglais</li>
+      <li>🔇 Mode silencieux après l’appel à la prière</li>
+    </ul>
+  </div>
+
+  <div class="footer">
+    <img src="ic_besmainfo.png" alt="BesmaInfo">
+    <span id="footerText">© 2025 BesmaInfo — Tous droits réservés</span><br>
+    <a class="email" href="mailto:besmainfo2025@gmail.com">📧 besmainfo2025@gmail.com</a>
+  </div>
+
+  <script>
+    const translations = {
+      fr: {
+        subtitle: "Application officielle par <b>BesmaInfo</b>",
+        download: "⬇️ Télécharger la version 1.0.0",
+        featuresTitle: "✨ Fonctionnalités :",
+        features: [
+          "🕌 Horaires de prière précis selon ta localisation",
+          "🔊 Adhan complet (audio)",
+          "🔔 Notifications automatiques",
+          "🌍 Interface multilingue : Français, Arabe, Anglais",
+          "🔇 Mode silencieux après l’appel à la prière"
+        ],
+        footer: "© 2025 BesmaInfo — Tous droits réservés"
+      },
+      en: {
+        subtitle: "Official app by <b>BesmaInfo</b>",
+        download: "⬇️ Download version 1.0.0",
+        featuresTitle: "✨ Features:",
+        features: [
+          "🕌 Accurate prayer times based on your location",
+          "🔊 Full Adhan (audio)",
+          "🔔 Automatic notifications",
+          "🌍 Multilingual interface: English, Arabic, French",
+          "🔇 Silent mode after Adhan"
+        ],
+        footer: "© 2025 BesmaInfo — All rights reserved"
+      },
+      ar: {
+        subtitle: "<b>بسمة إنفو</b> التطبيق الرسمي من",
+        download: "⬇️ تحميل الإصدار 1.0.0",
+        featuresTitle: "✨ المميزات:",
+        features: [
+          "🕌 أوقات الصلاة دقيقة حسب موقعك",
+          "🔊 أذان كامل (صوت)",
+          "🔔 إشعارات تلقائية",
+          "🌍 واجهة متعددة اللغات: العربية، الإنجليزية، الفرنسية",
+          "🔇 الوضع الصامت بعد الأذان"
+        ],
+        footer: "© 2025 بسمة إنفو — جميع الحقوق محفوظة"
+      }
+    };
+
+    function setLang(lang) {
+      const t = translations[lang];
+      document.getElementById("subtitle").innerHTML = t.subtitle;
+      document.getElementById("downloadBtn").textContent = t.download;
+      document.getElementById("features").innerHTML =
+        `<h3>${t.featuresTitle}</h3><ul>${t.features.map(f => `<li>${f}</li>`).join('')}</ul>`;
+      document.getElementById("footerText").innerHTML = t.footer;
+
+      // Gestion direction RTL/LTR
+      document.body.dir = (lang === 'ar') ? 'rtl' : 'ltr';
+    }
+  </script>
+</body>
+</html>      <li>🌍 Interface multilingue : Français, Arabe, Anglais</li>
       <li>🔇 Mode silencieux après l’appel à la prière</li>
     </ul>
   </div>
